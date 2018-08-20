@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Jumping Boy-Live Wallpaper</string>
+    <string name="wallpaper_description">Jumping Boy</string>
+    <string name="welcome">Welcome To Jumping Boy-Live Wallpaper App</string>
+    <string name="set">To set this live wallpaper, go to settings and find in wallpapers section live wallpaper category, your wallpaper named \'Jumping Boy\'</string>
+    <string name="orOption">OR click below button to set wallpaper</string>
+    <string name="setWall">SET WALLPAPER</string>
+</resources>
