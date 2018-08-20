@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         btSetWall = findViewById(R.id.btSetWallpaper);
         btSetWall.setOnClickListener(this);
+        //edited
 
     }
 
