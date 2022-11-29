@@ -10,9 +10,9 @@
         android:id="@+id/tvWelcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:gravity="center"
         android:text="@string/welcome"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toTopOf="@+id/tvSetAsWallpaper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +20,13 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSetAsWallpaper"
-        android:layout_width="322dp"
-        android:layout_height="86dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
         android:text="@string/set"
-        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,10 +34,11 @@
         app:layout_constraintVertical_bias="0.185" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/orOption"
-        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintBottom_toTopOf="@+id/btSetWallpaper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,8 +46,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btSetWallpaper"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:text="@string/setWall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

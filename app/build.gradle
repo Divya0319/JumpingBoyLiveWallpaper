@@ -4,11 +4,11 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.fastturtle.livewallpaper_aquarium"
+        applicationId "com.fastturtle.wallpaperAquarium"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 3
-        versionName "2.0"
+        versionCode 4
+        versionName "2.2"
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
@@ -16,7 +16,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

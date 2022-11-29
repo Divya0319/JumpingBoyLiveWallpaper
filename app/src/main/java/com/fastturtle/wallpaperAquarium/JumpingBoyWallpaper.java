@@ -1,4 +1,4 @@
-package com.fastturtle.livewallpaper_aquarium;
+package com.fastturtle.wallpaperAquarium;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,8 +14,7 @@ import android.view.SurfaceHolder;
  */
 public class JumpingBoyWallpaper extends WallpaperService {
     double x_pos_fish_orange, y_pos_fish_orange, x_pos_cat_fish, y_pos_cat_fish, x_pos_goldfish_right, y_pos_goldfish_right, x_pos_goldfish_left, y_pos_goldfish_left, angle_fish, boy_x_coord, boy_y_coord, jumping_angle_boy = 0;
-    int screenWidth, screenHeight;
-    int[] boy_sprites = {R.drawable.boy1, R.drawable.boy2, R.drawable.boy3, R.drawable.boy4, R.drawable.boy5, R.drawable.boy6, R.drawable.boy7, R.drawable.boy8};
+    int[] boy_sprites = {R.drawable.boy_1_flipped, R.drawable.boy2_flipped, R.drawable.boy3_flipped, R.drawable.boy4_flipped, R.drawable.boy5_flipped, R.drawable.boy6_flipped, R.drawable.boy7_flipped, R.drawable.boy8_flipped};
     int[] orange_fish_sprites = {R.drawable.fish_orange1, R.drawable.fish_orange2, R.drawable.fish_orange3, R.drawable.fish_orange4,};
     int[] cat_fish_sprites = {R.drawable.cat_fish1, R.drawable.cat_fish2, R.drawable.cat_fish3, R.drawable.cat_fish4, R.drawable.cat_fish5, R.drawable.cat_fish6, R.drawable.cat_fish7};
     int fish_steps = 9, fish_steps2 = 9, steps_man = 23, steps_orange = 15, frame_boy = 0, frame_orange = 0, frame_cat = 0, jump = 0;
@@ -52,18 +51,17 @@ public class JumpingBoyWallpaper extends WallpaperService {
             img_goldfish_left = BitmapFactory.decodeResource(getResources(), R.drawable.goldfish_left);
             backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 
-            screenWidth = getResources().getDisplayMetrics().widthPixels;
-            screenHeight = getResources().getDisplayMetrics().heightPixels;
-            x_pos_fish_orange = -0.277 * screenWidth;
-            y_pos_fish_orange = screenHeight * 0.35;
-            x_pos_cat_fish = screenWidth;
-            y_pos_cat_fish = screenHeight * 0.50;
-            x_pos_goldfish_right = -0.555 * screenWidth;
-            y_pos_goldfish_right = screenHeight * 0.75;
-            x_pos_goldfish_left = screenWidth;
-            y_pos_goldfish_left = screenHeight * 0.20;
-            boy_x_coord = -0.694 * screenWidth;
-            boy_y_coord = screenHeight * 0.52;
+
+            x_pos_fish_orange = -0.277 * Utils.screenWidth;
+            y_pos_fish_orange = Utils.screenHeight * 0.35;
+            x_pos_cat_fish = Utils.screenWidth;
+            y_pos_cat_fish = Utils.screenHeight * 0.50;
+            x_pos_goldfish_right = -0.555 * Utils.screenWidth;
+            y_pos_goldfish_right = Utils.screenHeight * 0.75;
+            x_pos_goldfish_left = Utils.screenWidth;
+            y_pos_goldfish_left = Utils.screenHeight * 0.20;
+            boy_x_coord = -0.694 * Utils.screenWidth;
+            boy_y_coord = Utils.screenHeight * 0.52;
         }
 
         @Override
@@ -72,12 +70,10 @@ public class JumpingBoyWallpaper extends WallpaperService {
             float touchPosition_x = event.getX();
             float touchPosition_y = event.getY();
 
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    if (touchPosition_x >= boy_x_coord && touchPosition_x < (boy_x_coord + img_man.getWidth()) && touchPosition_y >= boy_y_coord && touchPosition_y < (boy_y_coord + img_man.getHeight())) {
-                        jump = 1;
-                    }
-                    break;
+            if (action == MotionEvent.ACTION_DOWN) {
+                if (touchPosition_x >= boy_x_coord && touchPosition_x < (boy_x_coord + ((Utils.screenWidth / 360f) + img_man.getWidth())) && touchPosition_y >= boy_y_coord && touchPosition_y < (boy_y_coord + ((Utils.screenWidth / 360f) * img_man.getHeight()))) {
+                    jump = 1;
+                }
             }
 
         }
@@ -132,8 +128,9 @@ public class JumpingBoyWallpaper extends WallpaperService {
                 // clear the canvas
                 c.drawColor(Color.BLACK);
 
+                Bitmap scaledBitmap = Bitmap.createScaledBitmap(backgroundImage, Utils.screenWidth, Utils.screenHeight, false);
                 // draw the background image
-                c.drawBitmap(backgroundImage, 0, 0, null);
+                c.drawBitmap(scaledBitmap, 0, 0, null);
 
                 // draw the orange fish
                 c.drawBitmap(img_fish_orange, (float) x_pos_fish_orange, (float) y_pos_fish_orange, null);
@@ -147,38 +144,40 @@ public class JumpingBoyWallpaper extends WallpaperService {
                 c.drawBitmap(img_goldfish_left, (float) x_pos_goldfish_left, (float) y_pos_goldfish_left, null);
 
                 if (jump == 1) {
-                    boy_y_coord = boy_y_coord - (100 * Math.sin(Math.toDegrees(jumping_angle_boy)));
+                    boy_y_coord = boy_y_coord + (100 * Math.sin(Math.toDegrees(jumping_angle_boy)));
                     img_man = BitmapFactory.decodeResource(getResources(), R.drawable.boy4);
                     jumping_angle_boy++;
-                    c.drawBitmap(img_man, (float) boy_x_coord, (float) boy_y_coord, null);
-                    if (jumping_angle_boy == 9) {
+                    c.drawBitmap(img_man, (float) boy_x_coord, (float) boy_y_coord + img_man.getHeight(), null);
+                    if (jumping_angle_boy == 4) {
                         jump = 0;
                     }
                 } else {
-                    boy_y_coord = screenHeight * 0.52;
+                    boy_y_coord = 0;
                     img_man = BitmapFactory.decodeResource(getResources(), boy_sprites[frame_boy++]);
+                    c.translate(0, c.getHeight());
+                    c.scale(1, -1);
                     c.drawBitmap(img_man, (float) boy_x_coord, (float) boy_y_coord, null);
                 }
 
                 // if x crosses the width means  x has reached to right edge
-                if (x_pos_fish_orange > screenWidth + (0.277 * screenWidth)) {
+                if (x_pos_fish_orange > Utils.screenWidth + (0.277 * Utils.screenWidth)) {
                     // assign initial value to start with
-                    x_pos_fish_orange = -0.277 * screenWidth;
+                    x_pos_fish_orange = -0.277 * Utils.screenWidth;
                 }
                 if (angle_fish > Math.toDegrees(180)) {
                     angle_fish = 0;
                 }
                 if (x_pos_cat_fish < -150) {
-                    x_pos_cat_fish = screenWidth;
+                    x_pos_cat_fish = Utils.screenWidth;
                 }
-                if (boy_x_coord > screenWidth + 100) {
-                    boy_x_coord = -0.694 * screenWidth;
+                if (boy_x_coord > Utils.screenWidth + 100) {
+                    boy_x_coord = -0.694 * Utils.screenWidth;
                 }
-                if (x_pos_goldfish_right > screenWidth + 100) {
+                if (x_pos_goldfish_right > Utils.screenWidth + 100) {
                     x_pos_goldfish_right = -300;
                 }
                 if (x_pos_goldfish_left < -300) {
-                    x_pos_goldfish_left = screenWidth;
+                    x_pos_goldfish_left = Utils.screenWidth;
                 }
                 if (frame_orange == 4) {
                     frame_orange = 0;
@@ -189,7 +188,7 @@ public class JumpingBoyWallpaper extends WallpaperService {
                 if (frame_boy == 8) {
                     frame_boy = 0;
                 }
-                if (jumping_angle_boy == 9) {
+                if (jumping_angle_boy == 4) {
                     jumping_angle_boy = 0;
                 } else {
                     // change the x position/value by steps
@@ -201,7 +200,11 @@ public class JumpingBoyWallpaper extends WallpaperService {
                 }
             } finally {
                 if (c != null) {
-                    holder.unlockCanvasAndPost(c);
+                    try {
+                        holder.unlockCanvasAndPost(c);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 handler.removeCallbacks(drawRunner);

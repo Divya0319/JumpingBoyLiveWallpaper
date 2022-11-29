@@ -1,4 +1,4 @@
-package com.fastturtle.livewallpaper_aquarium;
+package com.fastturtle.wallpaperAquarium;
 
 import org.junit.Test;
 

@@ -1,12 +1,17 @@
-package com.fastturtle.livewallpaper_aquarium;
+package com.fastturtle.wallpaperAquarium;
 
 import android.app.WallpaperManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     AppCompatButton btSetWall;
@@ -17,7 +22,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         btSetWall = findViewById(R.id.btSetWallpaper);
         btSetWall.setOnClickListener(this);
-        //edited
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+
+        display.getRealMetrics(displayMetrics);
+
+        Utils.screenHeight = displayMetrics.heightPixels;
+        Utils.screenWidth = displayMetrics.widthPixels;
 
     }
 

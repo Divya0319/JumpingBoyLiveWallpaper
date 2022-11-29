@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fastturtle.livewallpaper_aquarium">
+    package="com.fastturtle.wallpaperAquarium">
 
     <uses-feature
         android:name="android:software.live_wallpaper"
@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme">
         <service
             android:exported="true"
-            android:name=".JumpingBoyWallpaper"
+            android:name="com.fastturtle.wallpaperAquarium.JumpingBoyWallpaper"
             android:enabled="true"
             android:label="Jumping Boy"
             android:permission="android.permission.BIND_WALLPAPER">
@@ -35,7 +35,8 @@
 
         <activity
             android:exported="true"
-            android:name=".MainActivity">
+            android:screenOrientation="nosensor"
+            android:name="com.fastturtle.wallpaperAquarium.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
